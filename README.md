@@ -20,9 +20,7 @@ Getting started with Notable is straightforward. Follow these steps:
 
 Notable includes the [auto-save extension](https://feather.wiki/?page=extensions_auto-save) which automatically saves your pages and settings as you work. However, you can always manually click the "Save to Server" button to ensure your changes are preserved.
 
-## Build
-
-## Build
+### Build
 
 **Notable** is cross-platform and does not have any platform-specific dependencies or configurations. You can build it on any major operating system (Windows, macOS, Linux) without issues.
 
