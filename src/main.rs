@@ -8,13 +8,14 @@ use std::path::PathBuf;
 use warp::{Buf, Filter};
 
 const WIKI_HTML: &str = include_str!("../html/wiki.html");
+const NOTABLE_PORT: u16 = 23629;
 
 fn extract_html_to_home() -> std::io::Result<PathBuf> {
     let user_dirs = UserDirs::new().expect("Unable to get user directories");
     let documents_dir = user_dirs
         .document_dir()
         .expect("Unable to get Documents directory");
-    let html_path = documents_dir.join("wiki.html");
+    let html_path = documents_dir.join("notable-wiki.html");
 
     if !html_path.exists() {
         let mut file = fs::File::create(&html_path)?;
@@ -47,11 +48,11 @@ async fn main() -> std::io::Result<()> {
 
         let routes = dav_header_route.or(save_wiki_route).or(wiki_html_route);
 
-        warp::serve(routes).run(([127, 0, 0, 1], 23629)).await;
+        warp::serve(routes).run(([127, 0, 0, 1], NOTABLE_PORT)).await;
     });
 
     // Open the file in the default browser
-    open::that("http://127.0.0.1:3030").expect("Failed to open browser");
+    open::that(format!("http://127.0.0.1:{}", NOTABLE_PORT)).expect("Failed to open browser");
 
     server.await.expect("Server failed");
 
